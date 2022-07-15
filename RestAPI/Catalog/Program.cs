@@ -1,5 +1,6 @@
 using System.Data.Common;
 using Catalog.Repositories;
+using Catalog.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Repository(DI):
 builder.Services.AddSingleton<IItemsRepository, InMemItemsRepository>();
+builder.Services.AddSingleton<IItemService, ItemService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swag at https://aka.ms/aspnetcore/swashbuckle

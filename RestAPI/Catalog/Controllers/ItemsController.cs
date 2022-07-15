@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Catalog.Models;
-using Catalog.Repositories;
+using Catalog.Services;
 using Catalog.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,35 +13,22 @@ namespace Catalog.Controllers;
 [Route("api/[controller]")]
 public class ItemsController : ControllerBase
 {
+    private readonly IItemService _itemService;
 
-    private readonly IItemsRepository _repository;
-
-    public ItemsController(IItemsRepository repository)
+    public ItemsController(IItemService itemService)
     {
-        _repository = repository;
+        _itemService = itemService;
     }
 
     [HttpGet]
-    public IEnumerable<Item> GetItems()
+    public IEnumerable<ItemDTO> GetItems()
     {
-        return _repository.GetItems();
+        return _itemService.GetItems();
     }
 
-    [HttpGet("(id)")]
-    public ActionResult<ItemDTO> GetItem(Guid id)
+    [HttpGet("ById")]
+    public ActionResult<ItemDTO> GetItem([FromQuery] Guid id)
     {
-        var item = _repository.GetItem(id);
-
-        if(item is null)
-            return NotFound();
-
-        return item.AsDTO();
-
-        /*
-         * Otra forma de hacerlo:
-         * 
-         * var item = _repository.GetItem(id)
-         *              .Select(item => new Item.AsDTO());
-         */
+        return _itemService.GetItemByID(id);
     }
 }
