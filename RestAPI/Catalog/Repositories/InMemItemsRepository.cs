@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System;
 using System.Collections.Generic;
 using Catalog.Models;
+using Catalog.ValueObjects;
 
 namespace Catalog.Repositories;
 
@@ -20,15 +21,17 @@ public class InMemItemsRepository : IItemsRepository
             Id = Guid.NewGuid(),
             Name = "Potion",
             Price = 9,
-            CreatedDate = DateTime.Now
+            CreatedDate = DateTime.Now,
+            Category = new Category(1)
         },
 
         new Item
         {
             Id = Guid.NewGuid(),
-            Name = "Iron Sword",
+            Name = "Diamond Sword",
             Price = 20,
-            CreatedDate = DateTime.Now
+            CreatedDate = DateTime.Now,
+            Category = new Category(2)
         },
 
         new Item
@@ -36,7 +39,8 @@ public class InMemItemsRepository : IItemsRepository
             Id = Guid.NewGuid(),
             Name = "Brozen Shield",
             Price = 10,
-            CreatedDate = DateTime.Now
+            CreatedDate = DateTime.Now,
+            Category = new Category(0)
         }
     };
 

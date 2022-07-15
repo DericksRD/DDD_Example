@@ -29,6 +29,10 @@ public class ItemService : IItemService
     public ItemDTO GetItemByID(Guid Id)
     {
         var item = _repository.GetItem(Id);
+
+        if (item == null)
+            throw new Exception("No se encontró ningún item con ese Id.");
+            
         return item.AsDTO();
     }
 }

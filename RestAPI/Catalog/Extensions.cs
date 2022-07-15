@@ -12,7 +12,8 @@ public static class Extensions
             Id = item.Id,
             Name = item.Name,
             Price = item.Price,
-            CreatedDate = item.CreatedDate
+            CreatedDate = item.CreatedDate,
+            Category = item.Category.Get()
         };
     }
 }
